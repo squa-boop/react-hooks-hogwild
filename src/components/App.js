@@ -9,18 +9,21 @@ function App() {
   const [sortOption, setSortOption] = useState("none");
   const [hiddenHogs, setHiddenHogs] = useState([]);
 
+  
   const toggleHideHog = (hogName) => {
     setHiddenHogs((prevHiddenHogs) =>
       prevHiddenHogs.includes(hogName)
         ? prevHiddenHogs.filter((name) => name !== hogName)
-        : [...prevHiddenHogs, hogName]
+        : [...prevHiddenHogs, hogName]  
     );
   };
 
+  
   const addHog = (newHog) => {
     setHogs((prevHogs) => [...prevHogs, newHog]);
   };
 
+  
   const filteredHogs = hogs
     .filter((hog) => !hiddenHogs.includes(hog.name))
     .filter((hog) => (filterGreased ? hog.greased : true));
@@ -35,11 +38,15 @@ function App() {
   });
 
   return (
-    <div className="ui grid container">
-      <h1>HogWild: Prize-Winning Pigs</h1>
+    <div>
+      
+      
+
+
+<h2 >HogWild: Prize-Winning Pigs</h2>
 
       {/* Filter and Sort Controls */}
-      <div>
+      <div className="filterWrapper">
         <label>
           <input
             type="checkbox"
@@ -61,7 +68,11 @@ function App() {
 
       {/* Hog Form to Add New Hogs */}
       <HogForm onAddHog={addHog} />
-
+      <br></br>
+      <br></br>
+      <br></br>
+      
+      {/* * Hog Container to Display Hogs */}
       <HogContainer hogs={sortedHogs} onToggleHide={toggleHideHog} />
     </div>
   );

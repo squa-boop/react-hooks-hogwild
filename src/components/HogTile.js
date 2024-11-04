@@ -8,7 +8,7 @@ function HogTile({ hog, onToggleHide }) {
   };
 
   return (
-    <div className="ui eight wide column">
+    <div className="d-flex justify-content-center my-4">
       <div className="ui card" onClick={toggleDetails}>
         <div className="image">
           <img src={hog.image} alt={hog.name} />

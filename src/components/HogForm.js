@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Container } from 'react-bootstrap';
 
 function HogForm({ onAddHog }) {
   const [name, setName] = useState('');
@@ -7,6 +8,32 @@ function HogForm({ onAddHog }) {
   const [weight, setWeight] = useState('');
   const [greased, setGreased] = useState(false);
   const [highestMedalAchieved, setHighestMedalAchieved] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value, checked } = e.target;
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'specialty':
+        setSpecialty(value);
+        break;
+      case 'weight':
+        setWeight(value);
+        break;
+      case 'image':
+        setImage(value);
+        break;
+      case 'greased':
+        setGreased(checked);
+        break;
+      case 'highestMedalAchieved':
+        setHighestMedalAchieved(value);
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,7 +46,8 @@ function HogForm({ onAddHog }) {
       highestMedalAchieved,
     };
     onAddHog(newHog);
-    // Clear the form after submission
+    
+    // Reset form fields
     setName('');
     setImage('');
     setSpecialty('');
@@ -29,65 +57,73 @@ function HogForm({ onAddHog }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="ui form">
-      <h3>Add a New Hog</h3>
-      <div className="field">
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </div>
-      <div className="field">
-        <label>Image URL:</label>
-        <input
-          type="text"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-          required
-        />
-      </div>
-      <div className="field">
-        <label>Specialty:</label>
-        <input
-          type="text"
-          value={specialty}
-          onChange={(e) => setSpecialty(e.target.value)}
-          required
-        />
-      </div>
-      <div className="field">
-        <label>Weight:</label>
-        <input
-          type="number"
-          value={weight}
-          onChange={(e) => setWeight(e.target.value)}
-          required
-        />
-      </div>
-      <div className="field">
-        <label>
+    <Container>  
+      <div className="d-flex justify-content-center align-items-center">
+        <form
+          onSubmit={handleSubmit}
+          className="d-flex flex-column w-50 border rounded shadow p-4"
+        >
           <input
-            type="checkbox"
-            checked={greased}
-            onChange={(e) => setGreased(e.target.checked)}
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={name}
+            onChange={handleChange}
+            required
+            className="form-control mb-3"
           />
-          Greased
-        </label>
+          <input
+            type="text"
+            name="specialty"
+            placeholder="Specialty"
+            value={specialty}
+            onChange={handleChange}
+            required
+            className="form-control mb-3"
+          />
+          <input
+            type="number"
+            name="weight"
+            placeholder="Weight"
+            value={weight}
+            onChange={handleChange}
+            required
+            className="form-control mb-3"
+          />
+          <label className="form-check-label mb-3">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              name="greased"
+              checked={greased}
+              onChange={handleChange}
+            />
+            Greased
+          </label>
+          <input
+            type="text"
+            name="image"
+            placeholder="Image URL"
+            value={image}
+            onChange={handleChange}
+            required
+            className="form-control mb-3"
+          />
+          <input
+            type="text"
+            name="highestMedalAchieved"
+            placeholder="Highest Medal Achieved"
+            value={highestMedalAchieved}
+            onChange={handleChange}
+            required
+            className="form-control mb-3"
+          />
+          <button type="submit" className="btn btn-primary">
+            Add Hog
+          </button>
+        </form>
       </div>
-      <div className="field">
-        <label>Highest Medal Achieved:</label>
-        <input
-          type="text"
-          value={highestMedalAchieved}
-          onChange={(e) => setHighestMedalAchieved(e.target.value)}
-          required
-        />
-      </div>
-      <button type="submit" className="ui button">Add Hog</button>
-    </form>
+    </Container>
   );
 }
 
